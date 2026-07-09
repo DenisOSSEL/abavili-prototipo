@@ -33,7 +33,7 @@
   /* Capa */
   .capa {
     background: linear-gradient(150deg, var(--primaria-deep) 0%, var(--primaria) 70%, #2bcccc 120%);
-    color: #fff; padding: 50px 20px 96px; text-align: center; position: relative; overflow: hidden;
+    color: #fff; padding: 50px 20px 46px; text-align: center; position: relative; overflow: hidden;
   }
   .capa::before, .capa::after { content: ""; position: absolute; border-radius: 50%; opacity: .16; }
   .capa::before { width: 320px; height: 320px; background: var(--amarelo); top: -120px; left: -90px; }
@@ -69,8 +69,19 @@
   .pill .n { display: inline-block; background: rgba(255,255,255,.25); border-radius: 99px; font-size: .66rem; padding: 0 6px; margin-right: 5px; }
   .pill:not(.ativa) .n { background: var(--primaria-soft); color: var(--primaria); }
 
+  .dica-uso {
+    background: var(--primaria-deep); color: #d8f0f0; font-size: .76rem; font-weight: 600;
+    text-align: center; padding: 8px 42px 8px 14px; position: relative;
+  }
+  .dica-uso b { color: var(--amarelo); }
+  .dica-uso button {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    background: rgba(255,255,255,.18); border: none; color: #fff; border-radius: 99px;
+    width: 24px; height: 24px; cursor: pointer; font-weight: 800; font-size: .85rem; line-height: 1;
+  }
+
   /* Layout */
-  .conteudo { max-width: 1080px; margin: -52px auto 0; padding: 0 16px 120px; position: relative; }
+  .conteudo { max-width: 1080px; margin: 0 auto; padding: 20px 16px 120px; position: relative; }
   .secao { display: none; animation: surgir .25s ease-out; position: relative; }
   .secao.ativa { display: block; }
   @keyframes surgir { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -192,7 +203,12 @@
     font-size: .76rem; max-width: 94vw; flex-wrap: wrap; justify-content: center;
   }
   .barra-pins button { font: inherit; font-weight: 700; border: none; border-radius: 99px; padding: 8px 14px; cursor: pointer; font-size: .74rem; }
-  .b-sugerir { background: var(--laranja); color: #fff; }
+  @keyframes pulsar {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240, 89, 58, .55); }
+    60% { box-shadow: 0 0 0 12px rgba(240, 89, 58, 0); }
+  }
+  .b-sugerir { background: var(--laranja); color: #fff; animation: pulsar 2.4s ease-out infinite; }
+  body.sugerindo .b-sugerir { animation: none; }
   body.sugerindo .b-sugerir { background: var(--amarelo); color: #5b3d00; }
   .b-copiar { background: var(--primaria); color: #fff; }
   .b-lista { background: rgba(255,255,255,.15); color: #fff; }
@@ -223,6 +239,14 @@
   .painel-lista .sugestao { border: 1px solid var(--borda); border-radius: 11px; padding: 10px 12px; margin-bottom: 8px; font-size: .82rem; cursor: pointer; }
   .painel-lista .sugestao:hover { border-color: var(--primaria); }
   .painel-lista .sugestao .meta { font-size: .68rem; font-weight: 800; color: var(--laranja); text-transform: uppercase; }
+
+  .rodape-navegacao { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 2px 0 10px; flex-wrap: wrap; }
+  .rodape-navegacao button {
+    font: inherit; font-weight: 700; font-size: .8rem; border: 2px solid var(--primaria);
+    background: #fff; color: var(--primaria); border-radius: 99px; padding: 10px 20px; cursor: pointer;
+  }
+  .rodape-navegacao button.principal { background: var(--primaria); color: #fff; }
+  .rodape-navegacao button:hover { filter: brightness(1.08); }
 
   .toast-copia {
     position: fixed; bottom: 74px; left: 50%; transform: translateX(-50%);
@@ -279,6 +303,11 @@
     <button class="pill" data-s="seguranca"><span class="n">7</span>Auditoria e LGPD</button>
     <button class="pill" data-s="decisoes"><span class="n">8</span>Decisões</button>
   </nav>
+  <div class="dica-uso" id="dica-uso">
+    👆 Troquem de tela pelas abas acima ou pelo botão no fim de cada página.
+    Para pedir uma mudança, toquem em <b>✏️ Sugerir</b> (lá embaixo) e cliquem em cima do que querem mudar.
+    <button id="dica-fechar" aria-label="Fechar dica">×</button>
+  </div>
 </div>
 
 <main class="conteudo">
@@ -890,16 +919,54 @@
   };
 
   // ---------- Navegação por abas ----------
+  var ORDEM = Object.keys(NOMES_SECOES);
+
   function abrirSecao(chave) {
     document.querySelectorAll('.pill').forEach(function (p) { p.classList.toggle('ativa', p.dataset.s === chave); });
     document.querySelectorAll('.secao').forEach(function (s) { s.classList.toggle('ativa', s.id === 's-' + chave); });
     renderPins();
   }
+
+  // Rola até logo abaixo da barra de abas, para o título da tela
+  // nunca ficar escondido atrás do menu fixo
+  function irPara(chave) {
+    abrirSecao(chave);
+    var alvo = document.querySelector('.nav-wrap').offsetTop;
+    window.scrollTo({ top: alvo, behavior: 'smooth' });
+  }
+
   document.getElementById('nav').addEventListener('click', function (e) {
     var pill = e.target.closest('.pill');
     if (!pill) return;
-    abrirSecao(pill.dataset.s);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    irPara(pill.dataset.s);
+  });
+
+  // Botões "tela anterior / próxima tela" no fim de cada seção
+  ORDEM.forEach(function (chave, i) {
+    var secao = document.getElementById('s-' + chave);
+    var barra = document.createElement('div');
+    barra.className = 'rodape-navegacao';
+    var anterior = i > 0
+      ? '<button data-vai="' + ORDEM[i - 1] + '">← ' + NOMES_SECOES[ORDEM[i - 1]] + '</button>'
+      : '<span></span>';
+    var proxima = i < ORDEM.length - 1
+      ? '<button class="principal" data-vai="' + ORDEM[i + 1] + '">Próxima tela: ' + NOMES_SECOES[ORDEM[i + 1]] + ' →</button>'
+      : '<button class="principal" data-vai="jornada">↺ Voltar ao início</button>';
+    barra.innerHTML = anterior + proxima;
+    secao.appendChild(barra);
+  });
+
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-vai]');
+    if (btn) irPara(btn.dataset.vai);
+  });
+
+  // Faixa de dica (fecha e não volta mais neste navegador)
+  var dica = document.getElementById('dica-uso');
+  if (localStorage.getItem('abavili-dica-fechada')) dica.style.display = 'none';
+  document.getElementById('dica-fechar').addEventListener('click', function () {
+    dica.style.display = 'none';
+    try { localStorage.setItem('abavili-dica-fechada', '1'); } catch (e) {}
   });
 
   // ---------- Estado dos pins ----------
@@ -969,6 +1036,7 @@
     secao.addEventListener('click', function (e) {
       var pinEl = e.target.closest('.pin');
       if (pinEl) { abrirLeitura(Number(pinEl.dataset.i), e); return; }
+      if (e.target.closest('.rodape-navegacao')) return; // botões de navegação nunca viram pin
       if (!modoSugestao) return;
       e.preventDefault();
       var rect = secao.getBoundingClientRect();
