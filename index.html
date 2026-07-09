@@ -301,9 +301,10 @@
     <button class="pill" data-s="salas"><span class="n">5</span>Salas e Reservas</button>
     <button class="pill" data-s="remanejo"><span class="n">6</span>Remanejamento</button>
     <button class="pill" data-s="faturamento"><span class="n">7</span>Faturamento</button>
-    <button class="pill" data-s="familia"><span class="n">8</span>Família</button>
-    <button class="pill" data-s="seguranca"><span class="n">9</span>Auditoria e LGPD</button>
-    <button class="pill" data-s="decisoes"><span class="n">10</span>Decisões</button>
+    <button class="pill" data-s="gestao"><span class="n">8</span>Gestão e Direção</button>
+    <button class="pill" data-s="familia"><span class="n">9</span>Família</button>
+    <button class="pill" data-s="seguranca"><span class="n">10</span>Auditoria e LGPD</button>
+    <button class="pill" data-s="decisoes"><span class="n">11</span>Decisões</button>
   </nav>
   <div class="dica-uso" id="dica-uso">
     👆 Troquem de tela pelas abas acima ou pelo botão no fim de cada página.
@@ -662,9 +663,35 @@
         </div>
       </div>
 
+      <div class="tela" style="margin-top:18px;">
+        <div class="tela-barra">
+          <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+          <div class="titulo">Minhas reservas</div>
+          <div class="quem">Dra. Ana</div>
+        </div>
+        <div class="tela-corpo">
+          <div class="item">
+            <div class="info"><b>Hoje 15h · Sala de Reunião · Bosque</b><small>Reunião com os pais do Davi</small></div>
+            <span class="chip c-verde">confirmada</span>
+            <button class="btn btn-contorno">Cancelar</button>
+          </div>
+          <div class="item">
+            <div class="info"><b>Sex 10/07 12h · Sala 2 · Bosque</b><small>Atendimento extra: Sofia R.</small></div>
+            <span class="chip c-amarelo">aguardando coordenação</span>
+            <button class="btn btn-contorno">Cancelar</button>
+          </div>
+          <div class="item">
+            <div class="info"><b>Toda quinta 12h · Sala de Reunião · Bosque</b><small>Reunião de equipe ★ recorrente</small></div>
+            <span class="chip c-roxo">da coordenação</span>
+          </div>
+          <p style="font-size:.72rem;color:var(--suave);margin-top:6px;">Cancelamento pede o motivo e fica registrado na auditoria. O mesmo jeito de reservar que vocês já conhecem da intranet, agora amarrado à agenda da clínica.</p>
+        </div>
+      </div>
+
       <div class="validar">
         <h3>💛 Validem com a gente</h3>
         <ul>
+          <li>Hoje vocês já reservam salas pela intranet do grupo. Este módulo substitui aquela reserva para a clínica, ou os dois convivem?</li>
           <li>Quem pode reservar sala: qualquer terapeuta, ou pedido que a coordenação aprova?</li>
           <li>Que tipos de reserva existem na rotina de vocês além de reunião de equipe, supervisão e conversa com pais?</li>
           <li>Reserva recorrente (reunião de equipe toda quinta) faz sentido? Quem gerencia?</li>
@@ -805,7 +832,90 @@
     </div>
   </section>
 
-  <!-- ============ 6. FAMÍLIA ============ -->
+  <!-- ============ 8. GESTÃO E DIREÇÃO ============ -->
+  <section class="secao" id="s-gestao">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">📊</div><h1>A visão de quem dirige a clínica</h1></div>
+      <p class="sub">Enquanto cada terapeuta vê só o que é dele, a direção e a coordenação enxergam
+      a clínica inteira: ocupação, assiduidade, equipe em dia, dinheiro e alertas do que precisa
+      de atenção. É a tela de vocês duas.</p>
+
+      <div class="tela">
+        <div class="tela-barra">
+          <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+          <div class="titulo">ABA VILI · Gestão · Julho/2026</div>
+          <div class="quem">Luana (direção)</div>
+        </div>
+        <div class="tela-corpo">
+          <div class="kpis" style="margin-top:0;">
+            <div class="kpi"><div class="valor">112</div><div class="rotulo">crianças ativas</div></div>
+            <div class="kpi"><div class="valor">87%</div><div class="rotulo">ocupação das salas</div></div>
+            <div class="kpi"><div class="valor">91%</div><div class="rotulo">assiduidade geral</div></div>
+            <div class="kpi"><div class="valor">7</div><div class="rotulo">remanejos no mês</div></div>
+          </div>
+
+          <div class="grid2" style="margin-top:16px;">
+            <div>
+              <h2>Evolutivos em dia, por equipe</h2>
+              <p style="font-size:.72rem;color:var(--suave);margin-bottom:8px;">A comparação entre equipes aparece só aqui, nunca na tela dos terapeutas.</p>
+              <div style="display:grid;gap:7px;font-size:.76rem;font-weight:700;">
+                <div>Psicologia ABA <div style="background:var(--primaria-soft);border-radius:99px;height:18px;margin-top:2px;"><div style="width:96%;height:100%;border-radius:99px;background:var(--verde);color:#fff;font-size:.66rem;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">96%</div></div></div>
+                <div>Terapia Ocupacional <div style="background:var(--primaria-soft);border-radius:99px;height:18px;margin-top:2px;"><div style="width:92%;height:100%;border-radius:99px;background:var(--verde);color:#fff;font-size:.66rem;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">92%</div></div></div>
+                <div>Fonoaudiologia <div style="background:var(--primaria-soft);border-radius:99px;height:18px;margin-top:2px;"><div style="width:81%;height:100%;border-radius:99px;background:var(--amarelo);color:#5b3d00;font-size:.66rem;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">81%</div></div></div>
+                <div>Psicomotricidade <div style="background:var(--primaria-soft);border-radius:99px;height:18px;margin-top:2px;"><div style="width:89%;height:100%;border-radius:99px;background:var(--verde);color:#fff;font-size:.66rem;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;">89%</div></div></div>
+              </div>
+              <h2 style="margin-top:16px;">As duas unidades, lado a lado</h2>
+              <table>
+                <tr><th></th><th>Bosque</th><th>Jd. Bela Vista</th></tr>
+                <tr><td>Crianças ativas</td><td><b>68</b></td><td><b>44</b></td></tr>
+                <tr><td>Sessões no mês</td><td>1.204</td><td>790</td></tr>
+                <tr><td>Ocupação das salas</td><td><span class="chip c-verde">91%</span></td><td><span class="chip c-amarelo">78%</span></td></tr>
+                <tr><td>Assiduidade</td><td>92%</td><td>89%</td></tr>
+              </table>
+            </div>
+            <div>
+              <h2>⚠ Precisa de atenção esta semana</h2>
+              <div class="item" style="border-color:var(--vermelho);">
+                <div class="info"><b>8 evolutivos pendentes há mais de 3 dias</b><small>Fonoaudiologia · trava o fechamento do convênio</small></div>
+                <button class="btn btn-laranja">Cobrar</button>
+              </div>
+              <div class="item" style="border-color:var(--amarelo);">
+                <div class="info"><b>Convênio Azul: 82% do teto de sessões usado</b><small>renovar autorizações antes do dia 20</small></div>
+                <button class="btn btn-contorno">Ver</button>
+              </div>
+              <div class="item" style="border-color:var(--amarelo);">
+                <div class="info"><b>Sala 4 do Jardim com 40% de ocupação</b><small>espaço para encaixar novas crianças da fila</small></div>
+                <button class="btn btn-contorno">Ver</button>
+              </div>
+              <div class="item">
+                <div class="info"><b>3 famílias sem termo LGPD anexado</b><small>pendência de cadastro na recepção</small></div>
+                <button class="btn btn-contorno">Ver</button>
+              </div>
+              <h2 style="margin-top:14px;">Dinheiro do mês</h2>
+              <div class="kpis" style="margin-top:6px;">
+                <div class="kpi"><div class="valor" style="font-size:1.15rem;">R$ 148 mil</div><div class="rotulo">previsto</div></div>
+                <div class="kpi"><div class="valor" style="font-size:1.15rem;">R$ 141 mil</div><div class="rotulo">faturável hoje</div></div>
+                <div class="kpi"><div class="valor" style="font-size:1.15rem;">R$ 7 mil</div><div class="rotulo">travado s/ evolutivo</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faixa faixa-escura"><span class="emoji">🔑</span><span><b>E o administrador do sistema?</b> Tem um chapéu separado: cria usuários e permissões, consulta a auditoria completa e executa as ações críticas (transferir registro de criança errada, destravar sessão faturada), sempre redigitando a senha e justificando. Gestão olha números; admin cuida das chaves.</span></div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Que números vocês olham toda semana hoje? Falta algum indicador nessa tela?</li>
+          <li>Alertas como os daqui devem chegar por WhatsApp ou e-mail, ou basta aparecer no sistema?</li>
+          <li>Querem metas na tela (ex.: ocupação alvo de 90%), com verde e vermelho automáticos?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9. FAMÍLIA ============ -->
   <section class="secao" id="s-familia">
     <div class="painel">
       <div class="painel-titulo"><div class="icone">💚</div><h1>Relatório Vili, feito para a família</h1></div>
@@ -877,10 +987,57 @@
         </div>
       </div>
 
+      <div class="painel" style="margin-top:18px;">
+        <h2>Outros gráficos que o relatório pode ter (escolham os favoritos)</h2>
+        <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div style="border:1px solid var(--borda);border-radius:12px;padding:12px;">
+            <h3 style="color:var(--primaria-deep);">Assiduidade mês a mês</h3>
+            <svg viewBox="0 0 240 110" style="width:100%;">
+              <rect x="20" y="38" width="38" height="60" rx="5" fill="#8fd0d3"/>
+              <rect x="75" y="30" width="38" height="68" rx="5" fill="#5bb7bb"/>
+              <rect x="130" y="22" width="38" height="76" rx="5" fill="#248e93"/>
+              <rect x="185" y="14" width="38" height="84" rx="5" fill="#125656"/>
+              <text x="39" y="108" font-size="9" fill="#4f6b6b" text-anchor="middle">Abr</text>
+              <text x="94" y="108" font-size="9" fill="#4f6b6b" text-anchor="middle">Mai</text>
+              <text x="149" y="108" font-size="9" fill="#4f6b6b" text-anchor="middle">Jun</text>
+              <text x="204" y="108" font-size="9" fill="#4f6b6b" text-anchor="middle">Jul</text>
+              <text x="204" y="10" font-size="10" font-weight="800" fill="#125656" text-anchor="middle">96%</text>
+            </svg>
+            <p style="font-size:.72rem;color:var(--suave);">"O Miguel quase não falta, e isso acelera a evolução."</p>
+          </div>
+          <div style="border:1px solid var(--borda);border-radius:12px;padding:12px;">
+            <h3 style="color:var(--primaria-deep);">Comportamentos em queda</h3>
+            <svg viewBox="0 0 240 110" style="width:100%;">
+              <rect x="10" y="14" width="200" height="16" rx="8" fill="#f0593a"/>
+              <rect x="10" y="38" width="140" height="16" rx="8" fill="#f4825f"/>
+              <rect x="10" y="62" width="86" height="16" rx="8" fill="#f8ab8d"/>
+              <rect x="10" y="86" width="42" height="16" rx="8" fill="#fdd3c2"/>
+              <text x="216" y="27" font-size="10" font-weight="800" fill="#c23e22">Abr · 9</text>
+              <text x="156" y="51" font-size="10" font-weight="800" fill="#c23e22">Mai · 6</text>
+              <text x="102" y="75" font-size="10" font-weight="800" fill="#c23e22">Jun · 4</text>
+              <text x="58" y="99" font-size="10" font-weight="800" fill="#c23e22">Jul · 2</text>
+            </svg>
+            <p style="font-size:.72rem;color:var(--suave);">"As crises foram de 9 para 2 por mês. A barra encolhendo conta a história sozinha."</p>
+          </div>
+          <div style="border:1px solid var(--borda);border-radius:12px;padding:12px;">
+            <h3 style="color:var(--primaria-deep);">Objetivos: farol de progresso</h3>
+            <div style="display:grid;gap:6px;font-size:.74rem;font-weight:600;margin-top:6px;">
+              <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border-radius:50%;background:var(--verde);flex-shrink:0;"></span>Pedir com figuras · alcançado</div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border-radius:50%;background:var(--verde);flex-shrink:0;"></span>Contato visual · alcançado</div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border-radius:50%;background:var(--amarelo);flex-shrink:0;"></span>Esperar a vez · em progresso</div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border-radius:50%;background:var(--amarelo);flex-shrink:0;"></span>Vestir-se sozinho · em progresso</div>
+              <div style="display:flex;align-items:center;gap:8px;"><span style="width:14px;height:14px;border-radius:50%;background:#9db4b4;flex-shrink:0;"></span>Escovar os dentes · próximo passo</div>
+            </div>
+            <p style="font-size:.72rem;color:var(--suave);margin-top:8px;">"Verde, amarelo e cinza: a mãe entende em 5 segundos onde o filho está."</p>
+          </div>
+        </div>
+      </div>
+
       <div class="validar">
         <h3>💛 Validem com a gente</h3>
         <ul>
           <li>Esse é o tom certo para as famílias? Mais técnico, menos técnico?</li>
+          <li>Da galeria acima, quais gráficos entram no relatório? Falta algum tipo que vocês já usam?</li>
           <li>Periodicidade: mensal, trimestral, ou quando a família pedir?</li>
           <li>Entrega: impresso na recepção, PDF pelo WhatsApp ou e-mail, ou os dois?</li>
         </ul>
@@ -992,9 +1149,17 @@
           <h2>🚪 Salas e equipe</h2>
           <ul style="list-style:none;font-size:.85rem;">
             <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">16. Reserva de sala: liberada para os terapeutas ou passa pela coordenação?</li>
-            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">17. Quais reservas se repetem toda semana (reunião de equipe, supervisão)?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">17. A reserva daqui substitui a da intranet do grupo para a clínica, ou convivem?</li>
             <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">18. Ausência avisada pelo próprio terapeuta: antecedência mínima?</li>
             <li style="padding:6px 0;">19. O terapeuta vê os próprios números? Comparações ficam só com a coordenação?</li>
+          </ul>
+        </div>
+        <div class="painel" style="margin:0;">
+          <h2>📊 Indicadores e gráficos</h2>
+          <ul style="list-style:none;font-size:.85rem;">
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">20. Que números a direção olha toda semana? Falta indicador na tela de Gestão?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">21. Alertas chegam por WhatsApp/e-mail ou basta no sistema? Com metas (verde/vermelho)?</li>
+            <li style="padding:6px 0;">22. Quais gráficos da galeria entram no relatório da família?</li>
           </ul>
         </div>
       </div>
@@ -1080,8 +1245,9 @@
   var NOMES_SECOES = {
     jornada: '1. A Jornada', recepcao: '2. Recepção', terapeuta: '3. Terapeuta na Sala',
     profissional: '4. Painel do Profissional', salas: '5. Salas e Reservas',
-    remanejo: '6. Remanejamento', faturamento: '7. Faturamento', familia: '8. Família',
-    seguranca: '9. Auditoria e LGPD', decisoes: '10. Decisões'
+    remanejo: '6. Remanejamento', faturamento: '7. Faturamento',
+    gestao: '8. Gestão e Direção', familia: '9. Família',
+    seguranca: '10. Auditoria e LGPD', decisoes: '11. Decisões'
   };
 
   // ---------- Navegação por abas ----------
