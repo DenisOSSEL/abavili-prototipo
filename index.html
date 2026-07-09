@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>ABA VILI · Sistema de Gestão · Protótipo para Validação</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primaria: #248e93;
+    --primaria-deep: #125656;
+    --primaria-soft: #e2f3f3;
+    --tinta: #173b3b;
+    --suave: #4f6b6b;
+    --borda: #e3eaea;
+    --fundo: #f7fcfc;
+    --branco: #ffffff;
+    --laranja: #f0593a;
+    --amarelo: #fdb937;
+    --azul: #467ff0;
+    --verde: #3f9d6b;
+    --vermelho: #d64545;
+    --roxo: #8e5bb8;
+    --raio: 14px;
+    --sombra: 0 2px 12px rgba(18, 86, 86, .08);
+    --sombra-alta: 0 12px 40px rgba(18, 86, 86, .16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', system-ui, sans-serif; background: var(--fundo); color: var(--tinta); line-height: 1.55; }
+
+  /* Capa */
+  .capa {
+    background: linear-gradient(150deg, var(--primaria-deep) 0%, var(--primaria) 70%, #2bcccc 120%);
+    color: #fff; padding: 50px 20px 96px; text-align: center; position: relative; overflow: hidden;
+  }
+  .capa::before, .capa::after { content: ""; position: absolute; border-radius: 50%; opacity: .16; }
+  .capa::before { width: 320px; height: 320px; background: var(--amarelo); top: -120px; left: -90px; }
+  .capa::after { width: 260px; height: 260px; background: var(--azul); bottom: -100px; right: -70px; }
+  .capa .peca { position: absolute; border-radius: 50%; pointer-events: none; }
+  .capa .marca-nome { font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 800; letter-spacing: .04em; position: relative; }
+  .capa .marca-nome span { color: var(--amarelo); }
+  .capa .slogan { font-weight: 300; font-size: clamp(.95rem, 2.5vw, 1.15rem); letter-spacing: .18em; text-transform: uppercase; margin-top: 6px; opacity: .95; position: relative; }
+  .capa .contexto {
+    max-width: 680px; margin: 26px auto 0; font-size: .93rem; font-weight: 500; text-align: left;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.35);
+    border-radius: var(--raio); padding: 18px 24px; position: relative; backdrop-filter: blur(4px);
+  }
+  .capa .contexto b { color: var(--amarelo); }
+  .capa .contexto ol { margin: 8px 0 0 20px; }
+  .capa .contexto li { margin-bottom: 4px; }
+  .tag-prototipo {
+    display: inline-block; background: var(--amarelo); color: #5b3d00; font-weight: 800;
+    font-size: .68rem; letter-spacing: .1em; padding: 5px 16px; border-radius: 99px;
+    text-transform: uppercase; margin-bottom: 18px; position: relative;
+  }
+
+  /* Navegação */
+  .nav-wrap { position: sticky; top: 0; z-index: 50; background: var(--fundo); box-shadow: 0 4px 14px rgba(18,86,86,.07); }
+  .nav { max-width: 1080px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; padding: 12px 16px; -webkit-overflow-scrolling: touch; }
+  .pill {
+    font: inherit; font-size: .78rem; font-weight: 700; white-space: nowrap; cursor: pointer;
+    border: 1.5px solid var(--borda); background: var(--branco); color: var(--suave);
+    border-radius: 99px; padding: 8px 15px; transition: all .15s;
+  }
+  .pill:hover { border-color: var(--primaria); color: var(--primaria); }
+  .pill.ativa { background: var(--primaria); border-color: var(--primaria); color: #fff; }
+  .pill .n { display: inline-block; background: rgba(255,255,255,.25); border-radius: 99px; font-size: .66rem; padding: 0 6px; margin-right: 5px; }
+  .pill:not(.ativa) .n { background: var(--primaria-soft); color: var(--primaria); }
+
+  /* Layout */
+  .conteudo { max-width: 1080px; margin: -52px auto 0; padding: 0 16px 120px; position: relative; }
+  .secao { display: none; animation: surgir .25s ease-out; position: relative; }
+  .secao.ativa { display: block; }
+  @keyframes surgir { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .painel { background: var(--branco); border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra); padding: 24px; margin-bottom: 18px; }
+  .painel-titulo { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; flex-wrap: wrap; }
+  .painel-titulo .icone { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 1.3rem; background: var(--primaria-soft); flex-shrink: 0; }
+  h1 { font-size: 1.45rem; font-weight: 800; color: var(--primaria-deep); }
+  h2 { font-size: 1.02rem; font-weight: 800; color: var(--primaria-deep); margin-bottom: 12px; }
+  h3 { font-size: .88rem; font-weight: 700; margin-bottom: 8px; }
+  .sub { color: var(--suave); font-size: .9rem; margin-bottom: 18px; max-width: 760px; }
+  .grid2 { display: grid; gap: 18px; }
+  @media (min-width: 800px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+
+  /* Moldura de tela */
+  .tela { border: 1px solid var(--borda); border-radius: 16px; overflow: hidden; box-shadow: var(--sombra-alta); background: var(--branco); }
+  .tela-barra { background: linear-gradient(90deg, var(--primaria-deep), var(--primaria)); color: #fff; padding: 10px 16px; display: flex; align-items: center; gap: 10px; font-size: .78rem; font-weight: 700; }
+  .tela-barra .bolas { display: flex; gap: 5px; }
+  .tela-barra .bolas i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+  .tela-barra .titulo { flex: 1; text-align: center; letter-spacing: .04em; }
+  .tela-barra .quem { font-weight: 400; font-size: .68rem; opacity: .85; }
+  .tela-corpo { padding: 18px; background: linear-gradient(180deg, #fdfefe, var(--fundo)); }
+
+  /* Componentes de mockup */
+  .btn { font: inherit; font-weight: 700; border: none; border-radius: 10px; padding: 9px 16px; cursor: default; background: var(--primaria); color: #fff; font-size: .78rem; }
+  .btn-verde { background: var(--verde); }
+  .btn-laranja { background: var(--laranja); }
+  .btn-roxo { background: var(--roxo); }
+  .btn-contorno { background: #fff; color: var(--primaria); border: 2px solid var(--primaria); }
+  .chip { display: inline-flex; align-items: center; gap: 5px; font-size: .64rem; font-weight: 800; padding: 3px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: .03em; }
+  .c-verde { background: #e3f4ea; color: #1e7247; }
+  .c-amarelo { background: #fdf3d7; color: #8a6300; }
+  .c-teal { background: var(--primaria-soft); color: var(--primaria-deep); }
+  .c-vermelho { background: #fbe5e5; color: var(--vermelho); }
+  .c-roxo { background: #efe4f8; color: var(--roxo); }
+  .c-cinza { background: #eef2f2; color: var(--suave); }
+
+  .item { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--branco); border: 1px solid var(--borda); border-radius: 12px; padding: 12px 14px; margin-bottom: 9px; font-size: .84rem; }
+  .item.destaque { border-color: var(--primaria); box-shadow: 0 0 0 3px var(--primaria-soft); }
+  .item .avatar { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .8rem; color: #fff; flex-shrink: 0; }
+  .item .info { flex: 1; min-width: 150px; }
+  .item .info small { color: var(--suave); font-size: .72rem; display: block; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--borda); }
+  th { font-size: .62rem; text-transform: uppercase; letter-spacing: .07em; color: var(--suave); background: var(--primaria-soft); }
+  tr:last-child td { border-bottom: none; }
+
+  .form-linha { margin-bottom: 11px; }
+  .form-linha label { display: block; font-size: .66rem; font-weight: 800; color: var(--suave); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+  .form-linha .valor { border: 1.5px solid var(--borda); border-radius: 10px; padding: 9px 12px; background: #fff; font-size: .84rem; }
+
+  /* Jornada */
+  .etapa-j { display: flex; gap: 16px; position: relative; padding-bottom: 22px; }
+  .etapa-j::before { content: ""; position: absolute; left: 21px; top: 46px; bottom: 0; width: 3px; background: var(--primaria-soft); }
+  .etapa-j:last-child::before { display: none; }
+  .etapa-j .num { width: 44px; height: 44px; border-radius: 50%; background: var(--primaria); color: #fff; display: grid; place-items: center; font-weight: 800; flex-shrink: 0; font-size: 1rem; box-shadow: 0 0 0 5px var(--primaria-soft); z-index: 1; }
+  .etapa-j.magica .num { background: var(--laranja); box-shadow: 0 0 0 5px #fde5df; }
+  .etapa-j .txt { padding-top: 6px; }
+  .etapa-j .txt b { font-size: .95rem; color: var(--primaria-deep); }
+  .etapa-j .txt p { font-size: .82rem; color: var(--suave); max-width: 640px; }
+  .etapa-j .txt .quem-faz { display: inline-block; font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--primaria); background: var(--primaria-soft); border-radius: 99px; padding: 2px 10px; margin-top: 5px; }
+
+  .faixa { border-radius: var(--raio); padding: 14px 18px; font-size: .82rem; margin-top: 10px; display: flex; gap: 12px; align-items: flex-start; }
+  .faixa .emoji { font-size: 1.3rem; line-height: 1; }
+  .faixa-roxa { background: #f4ecfa; border: 2px dashed var(--roxo); color: #4a2a66; }
+  .faixa-escura { background: var(--primaria-deep); color: #eafafa; }
+  .faixa-verde { background: #e3f4ea; border: 2px solid var(--verde); color: #14512f; }
+
+  /* Caixa de validação */
+  .validar { background: #fff9ec; border: 2px solid var(--amarelo); border-radius: var(--raio); padding: 16px 18px; margin-top: 16px; }
+  .validar h3 { color: #7a5600; display: flex; align-items: center; gap: 8px; }
+  .validar ul { list-style: none; }
+  .validar li { display: flex; gap: 10px; align-items: flex-start; font-size: .84rem; padding: 5px 0; color: #4c3a09; }
+  .validar li::before { content: "☐"; font-size: 1rem; color: #b98600; line-height: 1.3; }
+
+  /* Gráfico / KPIs */
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 14px; }
+  .kpi { text-align: center; padding: 14px 8px; border-radius: 12px; background: var(--primaria-soft); }
+  .kpi .valor { font-size: 1.6rem; font-weight: 800; color: var(--primaria-deep); }
+  .kpi .rotulo { font-size: .64rem; text-transform: uppercase; letter-spacing: .06em; color: var(--suave); font-weight: 700; }
+  .explica { background: var(--primaria-soft); border-radius: 12px; padding: 14px 16px; font-size: .87rem; margin-top: 12px; color: var(--primaria-deep); }
+  .explica b { color: var(--tinta); }
+  .legenda { display: flex; gap: 16px; font-size: .7rem; color: var(--suave); margin-top: 6px; font-weight: 600; }
+  .legenda i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+
+  .funil { display: flex; gap: 8px; flex-wrap: wrap; }
+  .funil .fase { flex: 1; min-width: 105px; text-align: center; padding: 14px 6px 10px; border-radius: 12px; color: #fff; font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+  .funil .fase .qtd { display: block; font-size: 1.5rem; letter-spacing: 0; }
+
+  .colecoes { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
+  .colecao { background: var(--primaria-soft); border: 1.5px solid var(--primaria); border-radius: 12px; padding: 11px 13px; font-size: .77rem; }
+  .colecao b { color: var(--primaria-deep); display: block; margin-bottom: 2px; }
+
+  .rodape { background: var(--primaria-deep); color: #cfeaea; text-align: center; padding: 34px 20px 130px; font-size: .8rem; margin-top: 30px; }
+  .rodape b { color: #fff; }
+  .rodape .pecinhas { margin-bottom: 10px; }
+  .rodape .pecinhas i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin: 0 4px; }
+
+  /* ============ Pins de sugestão ============ */
+  body.sugerindo .secao.ativa { cursor: crosshair; }
+  body.sugerindo .secao.ativa .painel { outline: 2px dashed var(--laranja); outline-offset: 4px; }
+
+  .pin {
+    position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px;
+    background: var(--laranja); color: #fff; border: 3px solid #fff; border-radius: 50% 50% 50% 4px;
+    display: grid; place-items: center; font-weight: 800; font-size: .72rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,.3); cursor: pointer; z-index: 40;
+    transform: rotate(-45deg);
+  }
+  .pin span { transform: rotate(45deg); }
+  .pin.de-luana { background: var(--roxo); }
+  .pin.de-carla { background: var(--azul); }
+
+  .barra-pins {
+    position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%);
+    background: var(--tinta); color: #fff; border-radius: 99px; box-shadow: var(--sombra-alta);
+    display: flex; align-items: center; gap: 8px; padding: 8px 10px; z-index: 90;
+    font-size: .76rem; max-width: 94vw; flex-wrap: wrap; justify-content: center;
+  }
+  .barra-pins button { font: inherit; font-weight: 700; border: none; border-radius: 99px; padding: 8px 14px; cursor: pointer; font-size: .74rem; }
+  .b-sugerir { background: var(--laranja); color: #fff; }
+  body.sugerindo .b-sugerir { background: var(--amarelo); color: #5b3d00; }
+  .b-copiar { background: var(--primaria); color: #fff; }
+  .b-lista { background: rgba(255,255,255,.15); color: #fff; }
+  .contador-pins { background: rgba(255,255,255,.15); border-radius: 99px; padding: 8px 12px; font-weight: 700; }
+
+  .form-pin {
+    position: fixed; z-index: 95; background: #fff; border-radius: 14px; box-shadow: var(--sombra-alta);
+    padding: 14px; width: min(320px, 92vw); border: 2px solid var(--laranja); display: none;
+  }
+  .form-pin.aberto { display: block; }
+  .form-pin label { font-size: .66rem; font-weight: 800; text-transform: uppercase; color: var(--suave); display: block; margin-bottom: 4px; }
+  .form-pin select, .form-pin textarea { width: 100%; font: inherit; font-size: .82rem; border: 1.5px solid var(--borda); border-radius: 9px; padding: 8px 10px; margin-bottom: 10px; }
+  .form-pin textarea { min-height: 74px; resize: vertical; }
+  .form-pin .linha-botoes { display: flex; gap: 8px; justify-content: flex-end; }
+  .form-pin .linha-botoes button { font: inherit; font-weight: 700; border: none; border-radius: 9px; padding: 8px 14px; cursor: pointer; font-size: .76rem; }
+  .fp-salvar { background: var(--laranja); color: #fff; }
+  .fp-cancelar { background: var(--primaria-soft); color: var(--primaria-deep); }
+  .fp-apagar { background: #fbe5e5; color: var(--vermelho); margin-right: auto; }
+  .form-pin .autor-tag { font-size: .74rem; font-weight: 800; color: var(--laranja); margin-bottom: 6px; }
+  .form-pin .texto-lido { font-size: .84rem; margin-bottom: 10px; white-space: pre-wrap; }
+
+  .painel-lista {
+    position: fixed; inset: 0; background: rgba(18,59,59,.6); z-index: 94; display: none;
+    align-items: flex-start; justify-content: center; padding: 30px 14px; overflow-y: auto;
+  }
+  .painel-lista.aberto { display: flex; }
+  .painel-lista .caixa { background: #fff; border-radius: 16px; box-shadow: var(--sombra-alta); width: 100%; max-width: 560px; padding: 20px; }
+  .painel-lista .sugestao { border: 1px solid var(--borda); border-radius: 11px; padding: 10px 12px; margin-bottom: 8px; font-size: .82rem; cursor: pointer; }
+  .painel-lista .sugestao:hover { border-color: var(--primaria); }
+  .painel-lista .sugestao .meta { font-size: .68rem; font-weight: 800; color: var(--laranja); text-transform: uppercase; }
+
+  .toast-copia {
+    position: fixed; bottom: 74px; left: 50%; transform: translateX(-50%);
+    background: var(--verde); color: #fff; font-size: .8rem; font-weight: 700;
+    padding: 10px 18px; border-radius: 99px; box-shadow: var(--sombra-alta); z-index: 96;
+    opacity: 0; transition: opacity .25s; pointer-events: none; max-width: 92vw; text-align: center;
+  }
+  .toast-copia.visivel { opacity: 1; }
+
+  @media print {
+    .nav-wrap, .barra-pins, .form-pin, .painel-lista { display: none !important; }
+    .secao { display: block !important; page-break-after: always; }
+    .capa { padding: 40px 20px; }
+    .conteudo { margin-top: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ CAPA ============ -->
+<header class="capa">
+  <span class="peca" style="width:16px;height:16px;background:var(--amarelo);top:22%;left:12%;opacity:.55;"></span>
+  <span class="peca" style="width:11px;height:11px;background:#fff;top:65%;left:7%;opacity:.4;"></span>
+  <span class="peca" style="width:14px;height:14px;background:var(--azul);top:30%;right:14%;opacity:.5;"></span>
+  <span class="peca" style="width:10px;height:10px;background:var(--laranja);top:70%;right:9%;opacity:.5;"></span>
+  <div class="tag-prototipo">Protótipo para validação · dados fictícios</div>
+  <div class="marca-nome">ABA <span>VILI</span></div>
+  <div class="slogan">Onde o Amor transforma</div>
+  <div class="contexto">
+    Luana e Carla, este é o desenho do futuro <b>sistema de gestão da ABA VILI</b>: da chegada
+    da criança na recepção até o faturamento. Nada aqui está programado em pedra ainda.
+    É exatamente agora que a opinião de vocês vale mais.
+    <br><br><b>Como participar:</b>
+    <ol>
+      <li>Naveguem pelas 8 telas usando os botões logo abaixo.</li>
+      <li>Em cada tela tem uma caixa amarela com perguntas para vocês.</li>
+      <li>Quiseram mudar algo? Toquem em <b>"Sugerir"</b> (botão laranja no rodapé), depois
+      cliquem em cima do ponto da tela e escrevam a sugestão. Vira um pin numerado.</li>
+      <li>No final, toquem em <b>"Copiar link"</b> e mandem o link para o Denis no WhatsApp.
+      As sugestões de vocês vão dentro do próprio link.</li>
+    </ol>
+  </div>
+</header>
+
+<!-- ============ NAVEGAÇÃO ============ -->
+<div class="nav-wrap">
+  <nav class="nav" id="nav">
+    <button class="pill ativa" data-s="jornada"><span class="n">1</span>A Jornada</button>
+    <button class="pill" data-s="recepcao"><span class="n">2</span>Recepção</button>
+    <button class="pill" data-s="terapeuta"><span class="n">3</span>Terapeuta</button>
+    <button class="pill" data-s="remanejo"><span class="n">4</span>Remanejamento</button>
+    <button class="pill" data-s="faturamento"><span class="n">5</span>Faturamento</button>
+    <button class="pill" data-s="familia"><span class="n">6</span>Família</button>
+    <button class="pill" data-s="seguranca"><span class="n">7</span>Auditoria e LGPD</button>
+    <button class="pill" data-s="decisoes"><span class="n">8</span>Decisões</button>
+  </nav>
+</div>
+
+<main class="conteudo">
+
+  <!-- ============ 1. JORNADA ============ -->
+  <section class="secao ativa" id="s-jornada">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">🧩</div><h1>A jornada do Miguel: um dia na ABA VILI</h1></div>
+      <p class="sub">Para entender o sistema, vale acompanhar uma criança fictícia. O Miguel tem
+      7 anos, está no espectro, e faz terapia numa quinta de manhã na Unidade Bosque. Cada passo
+      do dia dele é um pedaço do sistema, e um passo alimenta o outro sem depender da memória de ninguém.</p>
+
+      <div class="jornada">
+        <div class="etapa-j">
+          <div class="num">1</div>
+          <div class="txt"><b>A grade semanal do Miguel já existe no sistema</b>
+            <p>Toda quinta: 9h Psicologia ABA (Dra. Ana, sala 2), 10h Fono (Dr. Bruno, sala 5), 11h T.O. (Dra. Diana, sala 1). O sistema gera as sessões de cada dia a partir dessa grade.</p>
+            <span class="quem-faz">Coordenação monta uma vez</span></div>
+        </div>
+        <div class="etapa-j">
+          <div class="num">2</div>
+          <div class="txt"><b>08h52: Miguel chega com a mãe</b>
+            <p>A recepção digita "Mig...", encontra na hora e clica em Registrar chegada. Pronto: todos os terapeutas do Miguel ficam sabendo que ele está na clínica.</p>
+            <span class="quem-faz">Recepção · 1 clique</span></div>
+        </div>
+        <div class="etapa-j">
+          <div class="num">3</div>
+          <div class="txt"><b>09h02: check-in da sessão, dentro da sala</b>
+            <p>A Dra. Ana toca em Check-in no tablet. Isso se repete a cada troca de hora, em todas as sessões. É a prova, com horário, de que o atendimento aconteceu.</p>
+            <span class="quem-faz">Terapeuta · 1 toque</span></div>
+        </div>
+        <div class="etapa-j magica">
+          <div class="num">★</div>
+          <div class="txt"><b>No mesmo segundo, o evolutivo nasce sozinho</b>
+            <p>O check-in criou automaticamente o evolutivo pendente da sessão. Ninguém precisa lembrar de nada: a pendência fica na tela da terapeuta e da coordenação até ser resolvida. Essa é a regra de ouro do sistema.</p>
+            <span class="quem-faz">Sistema · automático</span></div>
+        </div>
+        <div class="etapa-j">
+          <div class="num">4</div>
+          <div class="txt"><b>09h55: Dra. Ana preenche e assina</b>
+            <p>Tentativas, acertos, nível de ajuda, engajamento e orientações. Ao assinar (redigitando a senha), o registro trava para sempre. Correção vira nova versão, nunca apaga a anterior.</p>
+            <span class="quem-faz">Terapeuta · 2 min</span></div>
+        </div>
+        <div class="etapa-j">
+          <div class="num">5</div>
+          <div class="txt"><b>11h: imprevisto, a Dra. Diana faltou</b>
+            <p>A coordenação abre a agenda dela e o sistema já sugere substitutas de T.O. livres às 11h, deixando de fora quem também está ausente. Dois cliques e a sessão vai para a Dra. Célia, com selo visível para todo mundo.</p>
+            <span class="quem-faz">Coordenação · 2 cliques</span></div>
+        </div>
+        <div class="etapa-j">
+          <div class="num">6</div>
+          <div class="txt"><b>Fim do mês: o faturamento se monta sozinho</b>
+            <p>Cada sessão com presença e evolutivo assinado entra no lote do convênio, dentro do saldo autorizado. Sem evolutivo? A sessão fica travada e aparece na lista de cobrança. Sem evolutivo, não há pagamento.</p>
+            <span class="quem-faz">Faturamento · confere e fecha</span></div>
+        </div>
+        <div class="etapa-j">
+          <div class="num">7</div>
+          <div class="txt"><b>A cada trimestre, a família recebe o Relatório Vili</b>
+            <p>Gráficos da evolução do Miguel, com explicação em linguagem simples, impressos com a marca da clínica. Os mesmos dados que sustentam a auditoria do convênio.</p>
+            <span class="quem-faz">Sistema gera · equipe revisa</span></div>
+        </div>
+      </div>
+
+      <div class="faixa faixa-escura"><span class="emoji">🔒</span><span><b>Por baixo de tudo, a auditoria:</b> cada passo acima gera um registro que não pode ser alterado nem apagado (nem pelo administrador), com quem fez, quando e por quê. É isso que deixa a clínica pronta para auditoria de convênio e para a LGPD.</span></div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Essa jornada representa o dia a dia real da clínica? Falta algum passo?</li>
+          <li>As sessões são sempre de hora em hora (9h, 10h, 11h...)? Existe sessão de 30 minutos?</li>
+          <li>Quem deve poder registrar a chegada: só a recepção, ou o terapeuta também?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. RECEPÇÃO ============ -->
+  <section class="secao" id="s-recepcao">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">🛎️</div><h1>Tela da Recepção</h1></div>
+      <p class="sub">Quinta-feira, 09h12, Unidade Bosque. A recepcionista vê quem chegou, quem falta chegar e a ocupação das salas, tudo em tempo real.</p>
+
+      <div class="tela">
+        <div class="tela-barra">
+          <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+          <div class="titulo">ABA VILI · Recepção · Unidade Bosque</div>
+          <div class="quem">Júlia (recepção)</div>
+        </div>
+        <div class="tela-corpo">
+          <div class="grid2">
+            <div>
+              <h2>Chegadas de hoje</h2>
+              <div class="form-linha"><label>Buscar paciente</label><div class="valor">🔍 mig|</div></div>
+              <div class="item destaque">
+                <div class="avatar" style="background:var(--primaria);">MS</div>
+                <div class="info"><b>Miguel S.</b> · 7 anos<small>Responsável: Fernanda O. · Convênio Azul</small></div>
+                <button class="btn btn-verde">✔ Registrar chegada</button>
+              </div>
+              <div class="item">
+                <div class="avatar" style="background:var(--azul);">AM</div>
+                <div class="info"><b>Alice M.</b> · 5 anos<small>Chegou 08h02 · em sessão na Sala 3</small></div>
+                <span class="chip c-teal">em atendimento</span>
+              </div>
+              <div class="item">
+                <div class="avatar" style="background:var(--suave);">PT</div>
+                <div class="info"><b>Pedro T.</b> · 9 anos<small>Sessão das 08h (Fono), não compareceu</small></div>
+                <button class="btn btn-contorno">Registrar falta</button>
+              </div>
+            </div>
+            <div>
+              <h2>Dia do Miguel <span class="chip c-cinza">após a chegada</span></h2>
+              <table>
+                <tr><th>Hora</th><th>Terapia</th><th>Profissional</th><th>Sala</th><th>Status</th></tr>
+                <tr><td><b>09h</b></td><td>Psicologia ABA</td><td>Dra. Ana</td><td>2</td><td><span class="chip c-amarelo">aguardando</span></td></tr>
+                <tr><td><b>10h</b></td><td>Fonoaudiologia</td><td>Dr. Bruno</td><td>5</td><td><span class="chip c-cinza">agendada</span></td></tr>
+                <tr><td><b>11h</b></td><td>Terapia Ocupacional</td><td>Dra. Célia</td><td>1</td><td><span class="chip c-roxo">⇄ remanejada</span></td></tr>
+              </table>
+              <h2 style="margin-top:16px;">Salas agora, 09h12</h2>
+              <div class="funil">
+                <div class="fase" style="background:var(--verde);">Sala 1<span class="qtd">livre</span></div>
+                <div class="fase" style="background:var(--primaria);">Sala 2<span class="qtd" style="font-size:.85rem;">Dra. Ana</span></div>
+                <div class="fase" style="background:var(--primaria);">Sala 3<span class="qtd" style="font-size:.85rem;">Dra. Célia</span></div>
+                <div class="fase" style="background:var(--verde);">Sala 4<span class="qtd">livre</span></div>
+                <div class="fase" style="background:var(--primaria);">Sala 5<span class="qtd" style="font-size:.85rem;">Dr. Bruno</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faixa faixa-verde"><span class="emoji">👁️</span><span><b>O que a recepção NÃO vê:</b> o conteúdo clínico dos evolutivos e os valores de faturamento. Cada papel enxerga só o que precisa. Para dados de saúde de crianças, isso é exigência da LGPD.</span></div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>A recepção precisa avisar o terapeuta quando a criança chega (um sino ou aviso no tablet)?</li>
+          <li>Falta de paciente: registra na hora ou espera alguns minutos de tolerância? Quantos?</li>
+          <li>Além de chegada e falta, precisamos de "chegou atrasado"? Isso muda a cobrança?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. TERAPEUTA ============ -->
+  <section class="secao" id="s-terapeuta">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">🩺</div><h1>Tela do Terapeuta <span class="chip c-teal">tablet na sala</span></h1></div>
+      <p class="sub">Dra. Ana, 09h58. Acabou a sessão do Miguel e o evolutivo já está esperando por ela, criado automaticamente no check-in.</p>
+
+      <div class="grid2">
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Minha agenda de hoje</div>
+            <div class="quem">Dra. Ana · Psico ABA</div>
+          </div>
+          <div class="tela-corpo">
+            <div style="margin-bottom:12px;"><span class="chip c-vermelho">● 2 evolutivos pendentes</span></div>
+            <div class="item destaque">
+              <div class="avatar" style="background:var(--primaria);">MS</div>
+              <div class="info"><b>09h · Miguel S.</b> <span class="chip c-verde">presença ✔</span><small>Sala 2 · Psicologia ABA</small></div>
+              <button class="btn btn-laranja">Preencher evolutivo</button>
+            </div>
+            <div class="item">
+              <div class="avatar" style="background:var(--azul);">SR</div>
+              <div class="info"><b>10h · Sofia R.</b><small>Sala 2 · chegou às 09h40 ✔</small></div>
+              <button class="btn btn-verde">Check-in ✔</button>
+            </div>
+            <div class="item">
+              <div class="avatar" style="background:var(--suave);">DL</div>
+              <div class="info"><b>11h · Davi L.</b><small>Sala 4 · ainda não chegou</small></div>
+              <span class="chip c-cinza">agendada</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Evolutivo · Miguel S. · 09/07 às 9h</div>
+            <div class="quem">v1 · pendente</div>
+          </div>
+          <div class="tela-corpo">
+            <div class="form-linha"><label>Objetivo 1 · Comunicação com figuras</label>
+              <div class="valor">10 tentativas · <b>7 acertos (70%)</b> · ajuda: <b>parcial</b></div></div>
+            <div class="form-linha"><label>Objetivo 2 · Contato visual ao nome</label>
+              <div class="valor">8 tentativas · <b>6 acertos (75%)</b> · ajuda: <b>independente</b></div></div>
+            <div class="form-linha"><label>Comportamentos observados</label>
+              <div class="valor">1 recusa (2 min), revertida com apoio visual</div></div>
+            <div class="form-linha"><label>Engajamento</label><div class="valor">★★★★☆ 4/5</div></div>
+            <div class="form-linha"><label>Descrição e orientações à família</label>
+              <div class="valor" style="min-height:44px;">Miguel iniciou trocas com 2 figuras sem ajuda física. Em casa, oferecer as figuras na hora do lanche…</div></div>
+            <button class="btn btn-verde" style="width:100%;">🔏 Assinar evolutivo (pede a senha)</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="faixa faixa-escura"><span class="emoji">🔏</span><span><b>Depois de assinado, ninguém edita nem apaga.</b> Lançou na criança errada? Só o administrador consegue transferir para a criança certa, redigitando a senha e justificando. E isso sai em relatório de auditoria. Os campos de porcentagem, ajuda e engajamento viram os gráficos da família e do convênio.</span></div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Esses campos do evolutivo (tentativas, acertos, nível de ajuda, engajamento, texto livre) batem com o registro de vocês hoje? O que falta? O que sobra?</li>
+          <li>Os objetivos de cada criança: quem cadastra e quem revisa? Coordenação, terapeuta, ou os dois?</li>
+          <li>Qual o prazo máximo aceitável para assinar um evolutivo: fim da sessão, fim do dia, ou até 24h?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. REMANEJAMENTO ============ -->
+  <section class="secao" id="s-remanejo">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">⇄</div><h1>Remanejamento: quando o terapeuta falta</h1></div>
+      <p class="sub">Hoje a Dra. Diana, de T.O., faltou. Sem sistema, isso vira telefone, papelzinho e criança sem atendimento. Com o sistema, a coordenação resolve em 2 cliques por sessão, ou remaneja a agenda inteira de uma vez.</p>
+
+      <div class="grid2">
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Agenda afetada · Dra. Diana</div>
+            <div class="quem">Marta (coordenação)</div>
+          </div>
+          <div class="tela-corpo">
+            <div style="margin-bottom:12px;"><span class="chip c-vermelho">falta hoje</span>
+              <span class="chip c-cinza">3 sessões afetadas</span></div>
+            <div class="item">
+              <div class="avatar" style="background:var(--azul);">AM</div>
+              <div class="info"><b>09h · Alice M.</b><small>T.O. · Sala 1</small></div>
+              <span class="chip c-verde">✔ remanejada para Dra. Célia</span>
+            </div>
+            <div class="item destaque">
+              <div class="avatar" style="background:var(--primaria);">MS</div>
+              <div class="info"><b>11h · Miguel S.</b><small>T.O. · Sala 1</small></div>
+              <button class="btn btn-roxo">Escolher substituta</button>
+            </div>
+            <div class="item">
+              <div class="avatar" style="background:var(--suave);">PT</div>
+              <div class="info"><b>14h · Pedro T.</b><small>T.O. · Sala 1</small></div>
+              <span class="chip c-amarelo">pendente</span>
+            </div>
+            <div class="faixa faixa-roxa" style="margin-top:12px;"><span class="emoji">⇄</span><span>Dá para remanejar <b>sessão a sessão</b>, o <b>dia todo</b> ou a <b>agenda inteira</b> de um período (férias, atestado), de forma programada ou de emergência.</span></div>
+          </div>
+        </div>
+
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Substitutas para Miguel · 11h · T.O.</div>
+            <div class="quem">filtro automático</div>
+          </div>
+          <div class="tela-corpo">
+            <p style="font-size:.78rem;color:var(--suave);margin-bottom:10px;">O sistema só mostra quem serve: <b>mesma especialidade</b>, <b>livre às 11h</b> e <b>presente hoje</b>, dando preferência a quem já conhece a criança.</p>
+            <div class="item destaque">
+              <div class="avatar" style="background:var(--verde);">Cé</div>
+              <div class="info"><b>Dra. Célia</b> <span class="chip c-verde">já atende o Miguel</span><small>T.O. · livre às 11h · Unidade Bosque</small></div>
+              <button class="btn btn-verde">Remanejar para ela</button>
+            </div>
+            <div class="item">
+              <div class="avatar" style="background:var(--primaria);">El</div>
+              <div class="info"><b>Dr. Elias</b><small>T.O. · livre às 11h · Unidade Bosque</small></div>
+              <button class="btn btn-contorno">Remanejar</button>
+            </div>
+            <div class="item" style="opacity:.5;">
+              <div class="avatar" style="background:var(--vermelho);">Fa</div>
+              <div class="info"><b>Dra. Fabiana</b> <span class="chip c-vermelho">ausente hoje</span><small>não aparece como opção, o sistema já verificou</small></div>
+            </div>
+            <div class="faixa faixa-verde" style="margin-top:12px;"><span class="emoji">🔗</span><span><b>Ao confirmar:</b> a sessão aparece com selo ⇄ na agenda da Dra. Célia, a recepção vê na hora, e o repasse do fim do mês vai para quem de fato atendeu.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>O substituto precisa ser avisado e aceitar, ou a coordenação decide e pronto?</li>
+          <li>A família deve ser avisada do remanejamento? Por WhatsApp, na recepção?</li>
+          <li>Falta e ausência programada (férias, atestado, congresso): que tipos vocês precisam separar nos relatórios?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. FATURAMENTO ============ -->
+  <section class="secao" id="s-faturamento">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">💠</div><h1>Faturamento amarrado à execução real</h1></div>
+      <p class="sub">Competência de julho/2026. Aqui aparece a regra central do sistema: <b>sessão sem evolutivo assinado não entra na cobrança nem no repasse.</b></p>
+
+      <div class="tela">
+        <div class="tela-barra">
+          <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+          <div class="titulo">ABA VILI · Faturamento · Julho/2026</div>
+          <div class="quem">Renata (faturamento)</div>
+        </div>
+        <div class="tela-corpo">
+          <h2>Funil da competência</h2>
+          <div class="funil">
+            <div class="fase" style="background:#9db4b4;">Agendadas<span class="qtd">412</span></div>
+            <div class="fase" style="background:var(--primaria);">Realizadas<span class="qtd">371</span></div>
+            <div class="fase" style="background:var(--amarelo);color:#5b3d00;">Sem evolutivo<span class="qtd">14</span></div>
+            <div class="fase" style="background:var(--verde);">Faturáveis<span class="qtd">357</span></div>
+            <div class="fase" style="background:var(--primaria-deep);">Faturadas<span class="qtd">···</span></div>
+          </div>
+
+          <div class="grid2" style="margin-top:18px;">
+            <div>
+              <h2>⚠ Pendências que travam a cobrança</h2>
+              <table>
+                <tr><th>Terapeuta</th><th>Evolutivos</th><th>Mais antigo</th></tr>
+                <tr><td>Dr. Bruno (Fono)</td><td><span class="chip c-vermelho">8</span></td><td>02/07</td></tr>
+                <tr><td>Dra. Célia (T.O.)</td><td><span class="chip c-amarelo">4</span></td><td>07/07</td></tr>
+                <tr><td>Dra. Ana (Psico ABA)</td><td><span class="chip c-verde">2</span></td><td>08/07</td></tr>
+              </table>
+              <p style="font-size:.74rem;color:var(--suave);margin-top:8px;">A coordenação vê essa mesma lista e sabe exatamente de quem cobrar antes do fechamento.</p>
+            </div>
+            <div>
+              <h2>Lotes por convênio</h2>
+              <table>
+                <tr><th>Convênio</th><th>Sessões</th><th>Autorização</th><th>Status</th></tr>
+                <tr><td>Convênio Azul</td><td>198</td><td>198/240 ✔</td><td><span class="chip c-verde">pronto</span></td></tr>
+                <tr><td>Vida Plena</td><td>102</td><td>102/120 ✔</td><td><span class="chip c-amarelo">aguarda pendências</span></td></tr>
+                <tr><td>Particular</td><td>57</td><td>sem guia</td><td><span class="chip c-verde">pronto</span></td></tr>
+              </table>
+              <p style="font-size:.74rem;color:var(--suave);margin-top:8px;">Cada sessão referencia a autorização e a guia. Sessão faturada não muda mais: só o admin destrava, com senha e justificativa auditada.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Como funciona o repasse aos terapeutas hoje: por sessão realizada, valor fixo, ou misto?</li>
+          <li>Dos convênios em negociação, já sabemos o que vão exigir por sessão (guia, senha de autorização, laudo)?</li>
+          <li>Sessão em que a criança faltou: cobra do particular? E do convênio? Qual a regra da casa?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. FAMÍLIA ============ -->
+  <section class="secao" id="s-familia">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">💚</div><h1>Relatório Vili, feito para a família</h1></div>
+      <p class="sub">O diferencial da clínica: de tempos em tempos a família recebe, impresso com a marca ou em PDF, a evolução da criança em gráficos caprichados. E todo gráfico vem com a explicação em linguagem simples logo embaixo. Dado de verdade, saído dos evolutivos assinados.</p>
+
+      <div class="tela" style="max-width:720px;margin:0 auto;">
+        <div class="tela-barra">
+          <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+          <div class="titulo">Relatório de Evolução · impressão A4</div>
+          <div class="quem">trimestral</div>
+        </div>
+        <div class="tela-corpo" style="background:#fff;">
+          <div style="text-align:center;border-bottom:3px solid var(--primaria);padding-bottom:12px;margin-bottom:14px;">
+            <div style="font-weight:800;font-size:1.3rem;color:var(--primaria-deep);letter-spacing:.04em;">ABA <span style="color:var(--laranja);">VILI</span></div>
+            <div style="font-size:.62rem;letter-spacing:.2em;color:var(--suave);text-transform:uppercase;">Relatório de Evolução · Onde o Amor transforma</div>
+          </div>
+          <p style="font-size:.85rem;"><b>Miguel S., 7 anos</b> · Abril a Julho/2026 · Psicologia ABA · Dra. Ana (CRP 06/•••••)</p>
+
+          <h3 style="margin-top:14px;color:var(--primaria-deep);">Comunicação funcional: pedir usando figuras</h3>
+          <svg viewBox="0 0 640 225" style="width:100%;background:#fbfdfd;border:1px solid var(--borda);border-radius:12px;" role="img" aria-label="Evolução do Miguel">
+            <defs>
+              <linearGradient id="areaAzul" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#248e93" stop-opacity=".22"/>
+                <stop offset="100%" stop-color="#248e93" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <line x1="50" y1="182" x2="612" y2="182" stroke="#e3eaea" stroke-width="2"/>
+            <line x1="50" y1="182" x2="50" y2="18" stroke="#e3eaea" stroke-width="2"/>
+            <line x1="50" y1="100" x2="612" y2="100" stroke="#eef4f4" stroke-width="1.5" stroke-dasharray="4 5"/>
+            <text x="18" y="187" font-size="11" fill="#4f6b6b">0%</text>
+            <text x="12" y="105" font-size="11" fill="#4f6b6b">50%</text>
+            <text x="6" y="26" font-size="11" fill="#4f6b6b">100%</text>
+            <text x="92" y="203" font-size="11" fill="#4f6b6b" font-weight="600">Abril</text>
+            <text x="242" y="203" font-size="11" fill="#4f6b6b" font-weight="600">Maio</text>
+            <text x="390" y="203" font-size="11" fill="#4f6b6b" font-weight="600">Junho</text>
+            <text x="540" y="203" font-size="11" fill="#4f6b6b" font-weight="600">Julho</text>
+            <path d="M 100 117 L 250 101 L 400 71 L 552 59 L 552 182 L 100 182 Z" fill="url(#areaAzul)"/>
+            <polyline points="100,117 250,101 400,71 552,59" fill="none" stroke="#248e93" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="100" cy="117" r="5.5" fill="#fff" stroke="#248e93" stroke-width="3.5"/>
+            <circle cx="250" cy="101" r="5.5" fill="#fff" stroke="#248e93" stroke-width="3.5"/>
+            <circle cx="400" cy="71" r="5.5" fill="#fff" stroke="#248e93" stroke-width="3.5"/>
+            <circle cx="552" cy="59" r="6.5" fill="#248e93" stroke="#fff" stroke-width="3"/>
+            <polyline points="100,69 250,89 400,121 552,143" fill="none" stroke="#f0593a" stroke-width="3.5" stroke-dasharray="8 6" stroke-linecap="round"/>
+            <circle cx="100" cy="69" r="5" fill="#f0593a"/><circle cx="250" cy="89" r="5" fill="#f0593a"/>
+            <circle cx="400" cy="121" r="5" fill="#f0593a"/><circle cx="552" cy="143" r="5" fill="#f0593a"/>
+            <text x="562" y="56" font-size="13" font-weight="800" fill="#125656">75%</text>
+            <text x="562" y="150" font-size="13" font-weight="800" fill="#c23e22">24%</text>
+          </svg>
+          <div class="legenda">
+            <span><i style="background:#248e93;"></i>Acertos sem ajuda</span>
+            <span><i style="background:#f0593a;"></i>Ainda precisou de ajuda</span>
+          </div>
+
+          <div class="explica">
+            <b>O que este gráfico conta:</b> em abril, o Miguel acertava 40% dos pedidos com figuras
+            e precisava de ajuda na maior parte das tentativas. Em julho já acerta <b>75%</b>,
+            e a necessidade de ajuda caiu pela metade. Na prática, <b>ele está pedindo o que quer
+            com muito mais autonomia</b>, um alicerce importante para a fala.
+          </div>
+
+          <div class="kpis">
+            <div class="kpi"><div class="valor">92%</div><div class="rotulo">assiduidade</div></div>
+            <div class="kpi"><div class="valor">3/5</div><div class="rotulo">objetivos alcançados</div></div>
+            <div class="kpi"><div class="valor">44</div><div class="rotulo">sessões no período</div></div>
+          </div>
+          <p style="font-size:.72rem;color:var(--suave);margin-top:12px;border-top:1px dashed var(--borda);padding-top:9px;">
+            Fecham o relatório: a seção "Nosso método: como trabalhamos na ABA VILI" e as orientações da equipe para casa.
+          </p>
+        </div>
+      </div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Esse é o tom certo para as famílias? Mais técnico, menos técnico?</li>
+          <li>Periodicidade: mensal, trimestral, ou quando a família pedir?</li>
+          <li>Entrega: impresso na recepção, PDF pelo WhatsApp ou e-mail, ou os dois?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7. AUDITORIA E LGPD ============ -->
+  <section class="secao" id="s-seguranca">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">🛡️</div><h1>Auditoria e LGPD: prontos antes de precisar</h1></div>
+      <p class="sub">Quando o convênio auditar, ele vai querer prova de 4 coisas. O sistema já nasce respondendo cada uma, e gera o pacote completo em 1 clique.</p>
+
+      <div class="grid2">
+        <div class="painel" style="margin:0;">
+          <h2>As 4 perguntas do auditor</h2>
+          <div class="item"><div class="avatar" style="background:var(--primaria);">1</div>
+            <div class="info"><b>A sessão aconteceu?</b><small>Dois registros de presença independentes, com horário: a chegada (recepção) e o check-in na sala (terapeuta).</small></div></div>
+          <div class="item"><div class="avatar" style="background:var(--primaria);">2</div>
+            <div class="info"><b>Quem atendeu era habilitado?</b><small>Cadastro com conselho e número de registro. A especialidade é validada até no remanejamento.</small></div></div>
+          <div class="item"><div class="avatar" style="background:var(--primaria);">3</div>
+            <div class="info"><b>Tem registro clínico?</b><small>Evolutivo assinado, com data, hora e versões. Não dá para alterar depois.</small></div></div>
+          <div class="item"><div class="avatar" style="background:var(--primaria);">4</div>
+            <div class="info"><b>A cobrança bate com o autorizado?</b><small>Saldo de sessões por autorização. Só fatura o que tem presença e evolutivo.</small></div></div>
+        </div>
+
+        <div class="painel" style="margin:0;">
+          <h2>O diário de bordo na prática</h2>
+          <table>
+            <tr><th>Quando</th><th>Quem</th><th>O quê</th></tr>
+            <tr><td>09/07 09h58</td><td>Dra. Ana</td><td>assinou o evolutivo do Miguel S.</td></tr>
+            <tr><td>09/07 08h40</td><td>Marta (coord.)</td><td>remanejou Alice M. para a Dra. Célia (falta)</td></tr>
+            <tr><td>09/07 08h02</td><td>Júlia (recep.)</td><td>registrou a chegada da Alice M.</td></tr>
+            <tr><td>08/07 17h12</td><td>Admin 🔐</td><td>transferiu evolutivo lançado em criança errada (senha e justificativa)</td></tr>
+            <tr><td>08/07 16h30</td><td>Dr. Bruno</td><td>visualizou o prontuário do Pedro T. (registro LGPD)</td></tr>
+          </table>
+          <div class="faixa faixa-escura" style="margin-top:12px;"><span class="emoji">🔒</span><span>Esse diário <b>só aceita linhas novas</b>. Ninguém edita, ninguém apaga, nem o administrador. A trava fica no servidor, não na tela.</span></div>
+        </div>
+      </div>
+
+      <div class="painel" style="margin-top:18px;">
+        <h2>O esqueleto dos dados: a sessão é a vértebra central</h2>
+        <div class="colecoes">
+          <div class="colecao"><b>Pacientes</b>criança, responsável, convênio, termo LGPD</div>
+          <div class="colecao"><b>Profissionais</b>especialidades, número de conselho, unidades</div>
+          <div class="colecao"><b>Grade semanal</b>o padrão fixo de cada criança</div>
+          <div class="colecao" style="border-width:3px;background:#d4ecec;"><b>SESSÃO ★</b>data real, status e check-ins. Liga tudo</div>
+          <div class="colecao"><b>Evolutivos</b>pendente, depois assinado. Imutável e versionado</div>
+          <div class="colecao"><b>Remanejamentos</b>de quem, para quem, motivo e quando</div>
+          <div class="colecao"><b>Autorizações e Faturamento</b>saldo por convênio, lotes, repasses</div>
+          <div class="colecao" style="background:var(--primaria-deep);border-color:var(--primaria-deep);color:#eafafa;"><b style="color:#fff;">Auditoria 🔒</b>só entra, nunca sai</div>
+        </div>
+        <div class="faixa faixa-verde" style="margin-top:14px;"><span class="emoji">✔</span><span><b>LGPD resolvida no desenho:</b> dados de saúde de menores com acesso por papel (cada um vê só o seu), registro de quem visualizou prontuário, termo de consentimento no cadastro, guarda de 20 anos e backup automático.</span></div>
+      </div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Já existe termo de consentimento LGPD assinado pelos responsáveis? Podemos anexar ao cadastro?</li>
+          <li>Além do administrador, quem deve poder consultar o diário de auditoria? A coordenação? Vocês duas?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8. DECISÕES ============ -->
+  <section class="secao" id="s-decisoes">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">📋</div><h1>Resumo: as decisões que destravam a construção</h1></div>
+      <p class="sub">Tudo que está nas caixas amarelas, reunido num lugar só. Com essas respostas, o sistema sai do papel na ordem lá de baixo.</p>
+
+      <div class="grid2">
+        <div class="painel" style="margin:0;">
+          <h2>🧩 Operação</h2>
+          <ul style="list-style:none;font-size:.85rem;">
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">1. Sessões: sempre 1 hora? Existem de 30 minutos?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">2. Tolerância de atraso antes de registrar falta?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">3. O substituto precisa aceitar o remanejamento?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">4. A família é avisada do remanejamento? Como?</li>
+            <li style="padding:6px 0;">5. Horário da grade (7h às 18h? tem sábado?)</li>
+          </ul>
+        </div>
+        <div class="painel" style="margin:0;">
+          <h2>🩺 Clínico</h2>
+          <ul style="list-style:none;font-size:.85rem;">
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">6. Os campos do evolutivo propostos servem? (validar com a equipe)</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">7. Quem cadastra os objetivos de cada criança?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">8. Prazo máximo para assinar o evolutivo?</li>
+            <li style="padding:6px 0;">9. Relatório da família: tom, frequência e forma de entrega?</li>
+          </ul>
+        </div>
+        <div class="painel" style="margin:0;">
+          <h2>💠 Financeiro</h2>
+          <ul style="list-style:none;font-size:.85rem;">
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">10. Regra de repasse aos terapeutas (por sessão? fixo?)</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">11. Falta do paciente: cobra? (particular e convênio)</li>
+            <li style="padding:6px 0;">12. O que os convênios em negociação vão exigir por sessão?</li>
+          </ul>
+        </div>
+        <div class="painel" style="margin:0;">
+          <h2>🛡️ Governança</h2>
+          <ul style="list-style:none;font-size:.85rem;">
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">13. Termo LGPD dos responsáveis: existe? Quem guarda?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">14. Quem pode ver o diário de auditoria?</li>
+            <li style="padding:6px 0;">15. Levantar o número exato de salas e equipe por unidade (Jardim Bela Vista e Bosque)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="painel" style="margin-top:18px;">
+        <h2>🚀 Ordem de construção (cada fase já entra em uso)</h2>
+        <div class="funil">
+          <div class="fase" style="background:var(--verde);">F1 Cadastros e Agenda<span class="qtd" style="font-size:.8rem;">✔ pronta</span></div>
+          <div class="fase" style="background:var(--primaria);">F2 Recepção e Check-in<span class="qtd" style="font-size:.8rem;">próxima</span></div>
+          <div class="fase" style="background:var(--primaria);">F3 Evolutivo</div>
+          <div class="fase" style="background:var(--primaria);">F4 Remanejamento</div>
+          <div class="fase" style="background:var(--primaria-deep);">F5 Faturamento</div>
+          <div class="fase" style="background:var(--primaria-deep);">F6 Auditoria</div>
+          <div class="fase" style="background:var(--laranja);">F7 Relatório Vili</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="pecinhas">
+    <i style="background:var(--amarelo);"></i><i style="background:var(--azul);"></i><i style="background:var(--laranja);"></i><i style="background:#2bcccc;"></i>
+  </div>
+  <b>ABA VILI. Onde o Amor transforma.</b><br>
+  Protótipo de validação do sistema de gestão · Grupo OSSEL · Julho/2026<br>
+  Todos os nomes e números desta página são fictícios.
+</footer>
+
+<!-- ============ Barra de sugestões ============ -->
+<div class="barra-pins" id="barra-pins">
+  <button class="b-sugerir" id="b-sugerir">✏️ Sugerir</button>
+  <span class="contador-pins" id="contador-pins">0 sugestões</span>
+  <button class="b-lista" id="b-lista">Ver todas</button>
+  <button class="b-copiar" id="b-copiar">🔗 Copiar link com as sugestões</button>
+</div>
+
+<!-- Formulário do pin -->
+<div class="form-pin" id="form-pin">
+  <div id="fp-novo">
+    <label>Quem está sugerindo</label>
+    <select id="fp-autor">
+      <option value="Luana">Luana</option>
+      <option value="Carla">Carla</option>
+      <option value="Equipe">Outra pessoa da equipe</option>
+    </select>
+    <label>Sugestão ou pedido de mudança</label>
+    <textarea id="fp-texto" placeholder="Ex.: aqui precisamos ver também o convênio da criança"></textarea>
+    <div class="linha-botoes">
+      <button class="fp-cancelar" id="fp-cancelar">Cancelar</button>
+      <button class="fp-salvar" id="fp-salvar">Salvar pin</button>
+    </div>
+  </div>
+  <div id="fp-leitura" style="display:none;">
+    <div class="autor-tag" id="fp-l-autor"></div>
+    <div class="texto-lido" id="fp-l-texto"></div>
+    <div class="linha-botoes">
+      <button class="fp-apagar" id="fp-apagar">Apagar</button>
+      <button class="fp-cancelar" id="fp-fechar">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Lista de sugestões -->
+<div class="painel-lista" id="painel-lista">
+  <div class="caixa">
+    <h2 style="margin-bottom:4px;">Sugestões marcadas nesta página</h2>
+    <p style="font-size:.78rem;color:var(--suave);margin-bottom:14px;">Toque numa sugestão para ir até o pin. Quando terminarem, usem o botão "Copiar link" e mandem para o Denis.</p>
+    <div id="lista-corpo"></div>
+    <div style="text-align:right;margin-top:12px;">
+      <button class="fp-cancelar" id="lista-fechar" style="font:inherit;font-weight:700;border:none;border-radius:9px;padding:8px 14px;cursor:pointer;background:var(--primaria-soft);color:var(--primaria-deep);">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-copia" id="toast-copia"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var NOMES_SECOES = {
+    jornada: '1. A Jornada', recepcao: '2. Recepção', terapeuta: '3. Terapeuta',
+    remanejo: '4. Remanejamento', faturamento: '5. Faturamento', familia: '6. Família',
+    seguranca: '7. Auditoria e LGPD', decisoes: '8. Decisões'
+  };
+
+  // ---------- Navegação por abas ----------
+  function abrirSecao(chave) {
+    document.querySelectorAll('.pill').forEach(function (p) { p.classList.toggle('ativa', p.dataset.s === chave); });
+    document.querySelectorAll('.secao').forEach(function (s) { s.classList.toggle('ativa', s.id === 's-' + chave); });
+    renderPins();
+  }
+  document.getElementById('nav').addEventListener('click', function (e) {
+    var pill = e.target.closest('.pill');
+    if (!pill) return;
+    abrirSecao(pill.dataset.s);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---------- Estado dos pins ----------
+  var pins = [];          // {s, x (% da seção), y (px do topo da seção), a (autor), t (texto)}
+  var modoSugestao = false;
+  var pinAberto = -1;     // índice do pin em leitura
+  var cliquePendente = null; // {s, x, y} aguardando o formulário
+
+  function b64e(str) {
+    return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function b64d(str) {
+    try { return decodeURIComponent(escape(atob(str.replace(/-/g, '+').replace(/_/g, '/')))); }
+    catch (e) { return null; }
+  }
+
+  function carregar() {
+    var m = location.hash.match(/fb=([A-Za-z0-9_-]+)/);
+    if (m) {
+      var json = b64d(m[1]);
+      if (json) { try { pins = JSON.parse(json) || []; return; } catch (e) {} }
+    }
+    try { pins = JSON.parse(localStorage.getItem('abavili-pins') || '[]'); } catch (e) { pins = []; }
+  }
+
+  function persistir() {
+    try { localStorage.setItem('abavili-pins', JSON.stringify(pins)); } catch (e) {}
+    var hash = pins.length ? '#fb=' + b64e(JSON.stringify(pins)) : '#';
+    history.replaceState(null, '', hash);
+    renderPins();
+    atualizarBarra();
+  }
+
+  // ---------- Renderização ----------
+  function renderPins() {
+    document.querySelectorAll('.pin').forEach(function (p) { p.remove(); });
+    pins.forEach(function (pin, i) {
+      var secao = document.getElementById('s-' + pin.s);
+      if (!secao) return;
+      var el = document.createElement('div');
+      el.className = 'pin' + (pin.a === 'Luana' ? ' de-luana' : pin.a === 'Carla' ? ' de-carla' : '');
+      el.style.left = pin.x + '%';
+      el.style.top = pin.y + 'px';
+      el.dataset.i = i;
+      el.title = pin.a + ': ' + pin.t;
+      el.innerHTML = '<span>' + (i + 1) + '</span>';
+      secao.appendChild(el);
+    });
+  }
+
+  function atualizarBarra() {
+    var n = pins.length;
+    document.getElementById('contador-pins').textContent =
+      n === 0 ? 'nenhuma sugestão' : n === 1 ? '1 sugestão' : n + ' sugestões';
+  }
+
+  // ---------- Modo sugestão ----------
+  var btnSugerir = document.getElementById('b-sugerir');
+  btnSugerir.addEventListener('click', function () {
+    modoSugestao = !modoSugestao;
+    document.body.classList.toggle('sugerindo', modoSugestao);
+    btnSugerir.textContent = modoSugestao ? '✅ Clique no lugar da sugestão' : '✏️ Sugerir';
+    fecharForm();
+  });
+
+  document.querySelectorAll('.secao').forEach(function (secao) {
+    secao.addEventListener('click', function (e) {
+      var pinEl = e.target.closest('.pin');
+      if (pinEl) { abrirLeitura(Number(pinEl.dataset.i), e); return; }
+      if (!modoSugestao) return;
+      e.preventDefault();
+      var rect = secao.getBoundingClientRect();
+      cliquePendente = {
+        s: secao.id.replace('s-', ''),
+        x: Math.round(((e.clientX - rect.left) / rect.width) * 1000) / 10,
+        y: Math.round(e.clientY - rect.top)
+      };
+      abrirFormNovo(e.clientX, e.clientY);
+    });
+  });
+
+  // ---------- Formulário ----------
+  var form = document.getElementById('form-pin');
+
+  function posicionarForm(cx, cy) {
+    var w = Math.min(320, window.innerWidth * 0.92);
+    var x = Math.min(Math.max(8, cx - w / 2), window.innerWidth - w - 8);
+    var y = Math.min(cy + 14, window.innerHeight - 260);
+    form.style.left = x + 'px';
+    form.style.top = Math.max(8, y) + 'px';
+  }
+
+  function abrirFormNovo(cx, cy) {
+    document.getElementById('fp-novo').style.display = '';
+    document.getElementById('fp-leitura').style.display = 'none';
+    document.getElementById('fp-texto').value = '';
+    posicionarForm(cx, cy);
+    form.classList.add('aberto');
+    document.getElementById('fp-texto').focus();
+  }
+
+  function abrirLeitura(i, e) {
+    pinAberto = i;
+    var pin = pins[i];
+    document.getElementById('fp-novo').style.display = 'none';
+    document.getElementById('fp-leitura').style.display = '';
+    document.getElementById('fp-l-autor').textContent = 'Pin ' + (i + 1) + ' · ' + pin.a + ' · ' + (NOMES_SECOES[pin.s] || pin.s);
+    document.getElementById('fp-l-texto').textContent = pin.t;
+    posicionarForm(e.clientX, e.clientY);
+    form.classList.add('aberto');
+  }
+
+  function fecharForm() {
+    form.classList.remove('aberto');
+    cliquePendente = null;
+    pinAberto = -1;
+  }
+
+  document.getElementById('fp-salvar').addEventListener('click', function () {
+    var texto = document.getElementById('fp-texto').value.trim();
+    if (!texto || !cliquePendente) { fecharForm(); return; }
+    pins.push({
+      s: cliquePendente.s, x: cliquePendente.x, y: cliquePendente.y,
+      a: document.getElementById('fp-autor').value, t: texto
+    });
+    fecharForm();
+    persistir();
+    mostrarToast('Pin salvo. Ele já está guardado no link desta página.');
+  });
+  document.getElementById('fp-cancelar').addEventListener('click', fecharForm);
+  document.getElementById('fp-fechar').addEventListener('click', fecharForm);
+  document.getElementById('fp-apagar').addEventListener('click', function () {
+    if (pinAberto >= 0) { pins.splice(pinAberto, 1); persistir(); }
+    fecharForm();
+  });
+
+  // ---------- Lista ----------
+  var painelLista = document.getElementById('painel-lista');
+  document.getElementById('b-lista').addEventListener('click', function () {
+    var corpo = document.getElementById('lista-corpo');
+    if (!pins.length) {
+      corpo.innerHTML = '<p style="font-size:.85rem;color:var(--suave);">Nenhuma sugestão ainda. Toquem em "Sugerir" e cliquem em cima do que querem mudar.</p>';
+    } else {
+      corpo.innerHTML = pins.map(function (pin, i) {
+        return '<div class="sugestao" data-i="' + i + '">' +
+          '<div class="meta">Pin ' + (i + 1) + ' · ' + pin.a + ' · ' + (NOMES_SECOES[pin.s] || pin.s) + '</div>' +
+          '<div></div></div>';
+      }).join('');
+      corpo.querySelectorAll('.sugestao').forEach(function (el, i) {
+        el.querySelector('div:last-child').textContent = pins[i].t;
+      });
+    }
+    painelLista.classList.add('aberto');
+  });
+  document.getElementById('lista-fechar').addEventListener('click', function () { painelLista.classList.remove('aberto'); });
+  painelLista.addEventListener('click', function (e) {
+    if (e.target === painelLista) { painelLista.classList.remove('aberto'); return; }
+    var item = e.target.closest('.sugestao');
+    if (!item) return;
+    var pin = pins[Number(item.dataset.i)];
+    painelLista.classList.remove('aberto');
+    abrirSecao(pin.s);
+    setTimeout(function () {
+      var secao = document.getElementById('s-' + pin.s);
+      var topo = secao.getBoundingClientRect().top + window.scrollY + pin.y - 160;
+      window.scrollTo({ top: Math.max(0, topo), behavior: 'smooth' });
+    }, 80);
+  });
+
+  // ---------- Copiar link ----------
+  document.getElementById('b-copiar').addEventListener('click', function () {
+    var url = location.origin + location.pathname + (pins.length ? '#fb=' + b64e(JSON.stringify(pins)) : '');
+    function feito() {
+      mostrarToast(pins.length
+        ? 'Link copiado com ' + pins.length + ' sugestão(ões). É só colar no WhatsApp do Denis.'
+        : 'Link copiado (ainda sem sugestões).');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(feito, function () { window.prompt('Copie o link:', url); });
+    } else {
+      window.prompt('Copie o link:', url);
+    }
+  });
+
+  var toastTimer;
+  function mostrarToast(msg) {
+    var t = document.getElementById('toast-copia');
+    t.textContent = msg;
+    t.classList.add('visivel');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('visivel'); }, 4200);
+  }
+
+  // ---------- Início ----------
+  carregar();
+  renderPins();
+  atualizarBarra();
+  if (pins.length) {
+    mostrarToast('Este link já contém ' + pins.length + ' sugestão(ões). Toque em "Ver todas".');
+  }
+})();
+</script>
+</body>
+</html>
