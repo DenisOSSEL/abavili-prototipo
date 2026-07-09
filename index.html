@@ -296,12 +296,14 @@
   <nav class="nav" id="nav">
     <button class="pill ativa" data-s="jornada"><span class="n">1</span>A Jornada</button>
     <button class="pill" data-s="recepcao"><span class="n">2</span>Recepção</button>
-    <button class="pill" data-s="terapeuta"><span class="n">3</span>Terapeuta</button>
-    <button class="pill" data-s="remanejo"><span class="n">4</span>Remanejamento</button>
-    <button class="pill" data-s="faturamento"><span class="n">5</span>Faturamento</button>
-    <button class="pill" data-s="familia"><span class="n">6</span>Família</button>
-    <button class="pill" data-s="seguranca"><span class="n">7</span>Auditoria e LGPD</button>
-    <button class="pill" data-s="decisoes"><span class="n">8</span>Decisões</button>
+    <button class="pill" data-s="terapeuta"><span class="n">3</span>Terapeuta na Sala</button>
+    <button class="pill" data-s="profissional"><span class="n">4</span>Painel do Profissional</button>
+    <button class="pill" data-s="salas"><span class="n">5</span>Salas e Reservas</button>
+    <button class="pill" data-s="remanejo"><span class="n">6</span>Remanejamento</button>
+    <button class="pill" data-s="faturamento"><span class="n">7</span>Faturamento</button>
+    <button class="pill" data-s="familia"><span class="n">8</span>Família</button>
+    <button class="pill" data-s="seguranca"><span class="n">9</span>Auditoria e LGPD</button>
+    <button class="pill" data-s="decisoes"><span class="n">10</span>Decisões</button>
   </nav>
   <div class="dica-uso" id="dica-uso">
     👆 Troquem de tela pelas abas acima ou pelo botão no fim de cada página.
@@ -518,7 +520,161 @@
     </div>
   </section>
 
-  <!-- ============ 4. REMANEJAMENTO ============ -->
+  <!-- ============ 4. PAINEL DO PROFISSIONAL ============ -->
+  <section class="secao" id="s-profissional">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">👩‍⚕️</div><h1>O painel de cada profissional</h1></div>
+      <p class="sub">Além do tablet na sala, cada terapeuta tem o seu próprio espaço no sistema:
+      a semana inteira num olhar, os números do mês, e as coisas que ele mesmo registra sem
+      depender da recepção ou da coordenação.</p>
+
+      <div class="grid2">
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Minha semana · 06 a 10/07</div>
+            <div class="quem">Dra. Ana · Psico ABA</div>
+          </div>
+          <div class="tela-corpo">
+            <table>
+              <tr><th>Hora</th><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th></tr>
+              <tr><td><b>08h</b></td><td><span class="chip c-teal">Davi ✔</span></td><td></td><td><span class="chip c-teal">Davi ✔</span></td><td></td><td><span class="chip c-cinza">livre</span></td></tr>
+              <tr><td><b>09h</b></td><td><span class="chip c-teal">Miguel ✔</span></td><td><span class="chip c-teal">Sofia ✔</span></td><td><span class="chip c-vermelho">Miguel ⚠</span></td><td><span class="chip c-amarelo">Miguel hoje</span></td><td><span class="chip c-teal">Sofia</span></td></tr>
+              <tr><td><b>10h</b></td><td><span class="chip c-teal">Sofia ✔</span></td><td><span class="chip c-roxo">Alice ⇄</span></td><td><span class="chip c-teal">Sofia ✔</span></td><td><span class="chip c-amarelo">Sofia hoje</span></td><td><span class="chip c-cinza">livre</span></td></tr>
+              <tr><td><b>11h</b></td><td><span class="chip c-cinza">livre</span></td><td><span class="chip c-teal">Davi ✔</span></td><td><span class="chip c-teal">Laura ✔</span></td><td><span class="chip c-amarelo">Davi hoje</span></td><td><span class="chip c-teal">Laura</span></td></tr>
+              <tr><td><b>14h</b></td><td><span class="chip c-teal">Laura ✔</span></td><td><span class="chip c-cinza">livre</span></td><td><span class="chip c-vermelho">Enzo ⚠</span></td><td><span class="chip c-cinza">livre</span></td><td><span class="chip c-cinza">livre</span></td></tr>
+            </table>
+            <p style="font-size:.72rem;color:var(--suave);margin-top:9px;">
+              ✔ evolutivo assinado · <b style="color:var(--vermelho);">⚠ evolutivo pendente</b> ·
+              ⇄ remanejo recebido · cinza = horário livre
+            </p>
+            <div class="faixa faixa-escura" style="margin-top:10px;"><span class="emoji">⚠</span><span>As duas pendências de quarta ficam gritando em vermelho até a Dra. Ana assinar. A coordenação enxerga a mesma flag.</span></div>
+          </div>
+        </div>
+
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Meus números e minhas ações</div>
+            <div class="quem">Julho/2026</div>
+          </div>
+          <div class="tela-corpo">
+            <div class="kpis" style="margin-top:0;">
+              <div class="kpi"><div class="valor">78</div><div class="rotulo">sessões realizadas</div></div>
+              <div class="kpi"><div class="valor">96%</div><div class="rotulo">evolutivos em dia</div></div>
+              <div class="kpi"><div class="valor">6</div><div class="rotulo">faltas de pacientes</div></div>
+              <div class="kpi"><div class="valor">3</div><div class="rotulo">remanejos recebidos</div></div>
+            </div>
+            <h3 style="margin-top:14px;">Relatórios que eu mesmo puxo</h3>
+            <div class="item"><div class="info"><b>Minhas sessões do mês</b><small>com presença, status e evolutivo de cada uma</small></div><button class="btn btn-contorno">Gerar PDF</button></div>
+            <div class="item"><div class="info"><b>Evolução dos meus pacientes</b><small>os gráficos de cada criança que eu atendo</small></div><button class="btn btn-contorno">Abrir</button></div>
+            <h3 style="margin-top:14px;">O que eu registro sozinho</h3>
+            <div class="item"><div class="info"><b>Avisar ausência programada</b><small>férias, congresso, atestado. Já dispara o remanejamento com antecedência</small></div><button class="btn">Avisar</button></div>
+            <div class="item"><div class="info"><b>Pedir reserva de sala</b><small>atendimento extra, reunião com os pais de um paciente</small></div><button class="btn">Reservar</button></div>
+            <div class="item"><div class="info"><b>Sugerir ajuste na grade</b><small>ex.: trocar a sessão do Davi de 11h para 8h. A coordenação aprova</small></div><button class="btn">Sugerir</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="faixa faixa-verde"><span class="emoji">🤝</span><span><b>Autonomia com controle:</b> o terapeuta vê e registra as coisas dele, mas nada muda a grade oficial sem a coordenação aprovar. E cada número que ele vê é só dele: ninguém compara terapeutas na tela de ninguém.</span></div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>O que mais o terapeuta precisa ver no painel dele? Falta alguma informação do dia a dia?</li>
+          <li>Ele avisar a própria ausência pelo sistema funciona para vocês? Com quanto tempo mínimo de antecedência?</li>
+          <li>Ele deve ver os próprios números (faltas, pendências)? E comparação com a equipe, mostramos só para a coordenação?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. SALAS E RESERVAS ============ -->
+  <section class="secao" id="s-salas">
+    <div class="painel">
+      <div class="painel-titulo"><div class="icone">🚪</div><h1>Salas e reservas: terapia, reunião e tudo entre elas</h1></div>
+      <p class="sub">As sessões da grade já ocupam as salas automaticamente. A reserva manual serve
+      para o resto da vida da clínica: reunião de equipe, supervisão, conversa com os pais,
+      atendimento extra. Tudo por unidade, sem choque de horário.</p>
+
+      <div class="tela">
+        <div class="tela-barra">
+          <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+          <div class="titulo">Mapa de salas · quinta 09/07</div>
+          <div class="quem">Marta (coordenação)</div>
+        </div>
+        <div class="tela-corpo">
+          <div style="margin-bottom:12px;">
+            <span class="chip" style="background:var(--primaria);color:#fff;">Unidade Bosque</span>
+            <span class="chip c-cinza">Jardim Bela Vista</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table>
+              <tr><th>Hora</th><th>Sala 1</th><th>Sala 2</th><th>Sala 3</th><th>Sala de Reunião</th></tr>
+              <tr><td><b>09h</b></td>
+                <td><span class="chip c-teal">Alice · T.O.</span></td>
+                <td><span class="chip c-teal">Miguel · Psico</span></td>
+                <td><span class="chip c-teal">Enzo · Fono</span></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td></tr>
+              <tr><td><b>10h</b></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td>
+                <td><span class="chip c-teal">Sofia · Psico</span></td>
+                <td><span class="chip c-teal">Miguel · Fono</span></td>
+                <td><span class="chip c-roxo">Supervisão ABA</span></td></tr>
+              <tr><td><b>12h</b></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td>
+                <td><span class="chip c-amarelo">Reunião de equipe ★ toda 5ª</span></td></tr>
+              <tr><td><b>15h</b></td>
+                <td><span class="chip c-teal">Davi · Psicomot.</span></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td>
+                <td><button class="btn btn-contorno" style="padding:5px 12px;">Reservar</button></td>
+                <td><span class="chip c-verde">Pais do Davi + Dra. Ana</span></td></tr>
+            </table>
+          </div>
+          <p style="font-size:.72rem;color:var(--suave);margin-top:9px;">
+            Azul = sessão da grade (bloqueia sozinha) · roxo/amarelo/verde = reservas manuais ·
+            ★ = reserva que se repete toda semana
+          </p>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:18px;">
+        <div class="tela">
+          <div class="tela-barra">
+            <div class="bolas"><i style="background:var(--laranja)"></i><i style="background:var(--amarelo)"></i><i style="background:#4cd964"></i></div>
+            <div class="titulo">Nova reserva · Sala de Reunião</div>
+            <div class="quem">quinta 09/07 · 09h</div>
+          </div>
+          <div class="tela-corpo">
+            <div class="form-linha"><label>Motivo</label><div class="valor">Reunião com os pais do Miguel S.</div></div>
+            <div class="form-linha"><label>Quem participa</label><div class="valor">Dra. Ana (Psico ABA) + Fernanda O. (responsável)</div></div>
+            <div class="form-linha"><label>Repetir toda semana?</label><div class="valor">Não, só desta vez</div></div>
+            <div class="form-linha"><label>Reservado por</label><div class="valor">Marta (coordenação)</div></div>
+            <button class="btn btn-verde" style="width:100%;">Confirmar reserva</button>
+          </div>
+        </div>
+        <div>
+          <div class="faixa faixa-verde" style="margin-top:0;"><span class="emoji">🔗</span><span><b>Amarrado ao resto:</b> a reunião com os pais aparece para a recepção receber a família, e no painel da Dra. Ana. Se tiver a ver com um paciente, fica ligada ao prontuário dele.</span></div>
+          <div class="faixa faixa-escura"><span class="emoji">🚫</span><span><b>Choque de horário é impossível:</b> se alguém tentar reservar uma sala ocupada, o sistema barra na hora e mostra o que já existe ali. Reserva também entra na auditoria.</span></div>
+          <div class="faixa faixa-roxa"><span class="emoji">🏢</span><span><b>Por unidade:</b> Bosque e Jardim Bela Vista têm seus próprios mapas. Quem trabalha nas duas alterna com um toque.</span></div>
+        </div>
+      </div>
+
+      <div class="validar">
+        <h3>💛 Validem com a gente</h3>
+        <ul>
+          <li>Quem pode reservar sala: qualquer terapeuta, ou pedido que a coordenação aprova?</li>
+          <li>Que tipos de reserva existem na rotina de vocês além de reunião de equipe, supervisão e conversa com pais?</li>
+          <li>Reserva recorrente (reunião de equipe toda quinta) faz sentido? Quem gerencia?</li>
+          <li>A recepção precisa ver as reuniões com pais para receber a família?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. REMANEJAMENTO ============ -->
   <section class="secao" id="s-remanejo">
     <div class="painel">
       <div class="painel-titulo"><div class="icone">⇄</div><h1>Remanejamento: quando o terapeuta falta</h1></div>
@@ -832,6 +988,15 @@
             <li style="padding:6px 0;">15. Levantar o número exato de salas e equipe por unidade (Jardim Bela Vista e Bosque)</li>
           </ul>
         </div>
+        <div class="painel" style="margin:0;">
+          <h2>🚪 Salas e equipe</h2>
+          <ul style="list-style:none;font-size:.85rem;">
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">16. Reserva de sala: liberada para os terapeutas ou passa pela coordenação?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">17. Quais reservas se repetem toda semana (reunião de equipe, supervisão)?</li>
+            <li style="padding:6px 0;border-bottom:1px dashed var(--borda);">18. Ausência avisada pelo próprio terapeuta: antecedência mínima?</li>
+            <li style="padding:6px 0;">19. O terapeuta vê os próprios números? Comparações ficam só com a coordenação?</li>
+          </ul>
+        </div>
       </div>
 
       <div class="painel" style="margin-top:18px;">
@@ -913,9 +1078,10 @@
   'use strict';
 
   var NOMES_SECOES = {
-    jornada: '1. A Jornada', recepcao: '2. Recepção', terapeuta: '3. Terapeuta',
-    remanejo: '4. Remanejamento', faturamento: '5. Faturamento', familia: '6. Família',
-    seguranca: '7. Auditoria e LGPD', decisoes: '8. Decisões'
+    jornada: '1. A Jornada', recepcao: '2. Recepção', terapeuta: '3. Terapeuta na Sala',
+    profissional: '4. Painel do Profissional', salas: '5. Salas e Reservas',
+    remanejo: '6. Remanejamento', faturamento: '7. Faturamento', familia: '8. Família',
+    seguranca: '9. Auditoria e LGPD', decisoes: '10. Decisões'
   };
 
   // ---------- Navegação por abas ----------
